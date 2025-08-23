@@ -26,28 +26,28 @@
     <!-- Build base plate and joints -->
     <xacro:skratch_top_base name="skratch_left_top_base"/>
     <joint name="base_joint" type="fixed">
-        <origin xyz="0.0 0.0 0.02" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.0 0.0 0.025" rpy="0.0 0.0 0.0"/>
         <parent link="base_link"/>
         <child link="skratch_left_top_base"/>
     </joint>
 
     <xacro:skratch_top_base name="skratch_right_top_base"/>
     <joint name="right_top_base_joint" type="fixed">
-        <origin xyz="0.0 0.0 0.02" rpy="0.0 0.0 3.14"/>
+        <origin xyz="0.0 0.0 0.025" rpy="0.0 0.0 3.14"/>
         <parent link="base_link"/>
         <child link="skratch_right_top_base"/>
     </joint>
 
     <xacro:skratch_bottom_base name="skratch_left_bottom_base"/>
     <joint name="left_bottom_base_joint" type="fixed">
-        <origin xyz="0.0 -0.099 -0.138" rpy="3.14 0.0 0.0"/>
+        <origin xyz="0.0 -0.099 -0.148" rpy="3.14 0.0 0.0"/>
         <parent link="skratch_left_top_base"/>
         <child link="skratch_left_bottom_base"/>
     </joint>
 
     <xacro:skratch_bottom_base name="skratch_right_bottom_base"/>
     <joint name="right_bottom_base_joint" type="fixed">
-        <origin xyz="0.0 -0.099 -0.138" rpy="3.14 0.0 0.0"/>
+        <origin xyz="0.0 -0.099 -0.148" rpy="3.14 0.0 0.0"/>
         <parent link="skratch_right_top_base"/>
         <child link="skratch_right_bottom_base"/>
     </joint>
@@ -70,35 +70,36 @@
     <!-- Build wheels using kelo drive -->
 
     <xacro:kelo_drive name="wheel0" parent="skratch_right_wheel_support" movable_joints="$(arg movable_joints)">
-        <origin xyz="0.202 0.0 -0.09" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.178 0.0 -0.125" rpy="0.0 0.0 0.0"/>
     </xacro:kelo_drive>
 
     <xacro:kelo_drive name="wheel3" parent="skratch_left_wheel_support" movable_joints="$(arg movable_joints)">
-        <origin xyz="0.202 0.0 -0.09" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.178 0.0 -0.125" rpy="0.0 0.0 0.0"/>
     </xacro:kelo_drive>
 
     <xacro:kelo_drive name="wheel1" parent="skratch_right_wheel_support" movable_joints="$(arg movable_joints)">
-        <origin xyz="-0.202 0.0 -0.09" rpy="0.0 0.0 0.0"/>
+        <origin xyz="-0.178 0.0 -0.125" rpy="0.0 0.0 0.0"/>
     </xacro:kelo_drive>
 
     <xacro:kelo_drive name="wheel2" parent="skratch_left_wheel_support" movable_joints="$(arg movable_joints)">
-        <origin xyz="-0.202 0.0 -0.09" rpy="0.0 0.0 0.0"/>
+        <origin xyz="-0.178 0.0 -0.125" rpy="0.0 0.0 0.0"/>
     </xacro:kelo_drive>
 
 
 
     <!-- Build Front Lidar -->
+
     <xacro:if value="$(arg use_sim)">
         <xacro:lidar_with_plugin 
             name="front_lidar" 
             ros_topic="/front_scan"
             update_rate="10"
-            min_angle="-1.57"
-            max_angle="1.57" />
+            min_angle="0.0"
+            max_angle="-3.83" />
 
         <joint name="front_lidar_joint" type="fixed">
-            <origin xyz="0.320 -0.21 -0.165" rpy="0.0 0.0 0.81"/>
-            <parent link="skratch_left_top_base"/>
+            <origin xyz="0.320 -0.21 -0.160" rpy="0.0 0.0 0.81"/>
+            <parent link="skratch_right_top_base"/>
             <child link="front_lidar_link"/>
         </joint>
     </xacro:if>
@@ -111,12 +112,12 @@
             name="rear_lidar" 
             ros_topic="/rear_scan"
             update_rate="10"
-            min_angle="-1.57"
-            max_angle="1.57" />
+            min_angle="0.0"
+            max_angle="-3.83" />
 
         <joint name="rear_lidar_joint" type="fixed">
-            <origin xyz="0.320 -0.205 -0.165" rpy="0.0 0.0 0.81"/>
-            <parent link="skratch_right_top_base"/>
+            <origin xyz="0.320 -0.205 -0.160" rpy="0.0 0.0 0.81"/>
+            <parent link="skratch_left_top_base"/>
             <child link="rear_lidar_link"/>
         </joint>
     </xacro:if>

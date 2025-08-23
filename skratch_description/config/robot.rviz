@@ -28,7 +28,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: front_lidar
+    SyncSource: rear_lidar
 Visualization Manager:
   Class: ""
   Displays:
@@ -261,7 +261,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: base_link
+    Fixed Frame: odom
     Frame Rate: 30
   Name: root
   Tools:
@@ -304,25 +304,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 13.777124404907227
+      Distance: 19.626922607421875
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.10767446458339691
-        Y: -0.11275184899568558
-        Z: 0.5849205255508423
+        X: 0.09692464023828506
+        Y: -0.11586971580982208
+        Z: -0.15209709107875824
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.8303983211517334
+      Pitch: 0.9703975319862366
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.2003767490386963
+      Yaw: 1.5203862190246582
     Saved: ~
 Window Geometry:
   Displays:

@@ -43,16 +43,16 @@ def generate_launch_description():
         default_value='True',
         description='Whether to start RVIZ')
     
-    declare_use_sim_argument = DeclareLaunchArgument(
-        'use_sim',
-        default_value='true',
-        description='Whether to include Gazebo simulation plugins'
-    )
+    # declare_use_sim_argument = DeclareLaunchArgument(
+    #     'use_sim',
+    #     default_value='true',
+    #     description='Whether to include Gazebo simulation plugins'
+    # )
 
-    use_sim = LaunchConfiguration('use_sim')
+    # use_sim = LaunchConfiguration('use_sim')
 
-    x_pose = LaunchConfiguration('x_pose', default='2.0')
-    y_pose = LaunchConfiguration('y_pose', default='-0.75')
+    x_pose = LaunchConfiguration('x_pose', default='-8.0')
+    y_pose = LaunchConfiguration('y_pose', default='-6.0')
 
     
     world = os.path.join( 
@@ -64,7 +64,7 @@ def generate_launch_description():
     # world = os.path.join(
     #     get_package_share_directory('turtlebot3_gazebo'),
     #     'worlds',
-    #     'turtlebot3_house.world'
+    #     'empty.world'
     # )
 
     gzserver_cmd = IncludeLaunchDescription(
@@ -96,8 +96,6 @@ def generate_launch_description():
             "platform_config:=skratch_config",
             " ",
             "movable_joints:=False",
-            " ",
-            "use_sim:=", use_sim,
         ]
     )
 
@@ -155,9 +153,9 @@ def generate_launch_description():
         gzclient_cmd,
         robot_state_pub_cmd,
         spawn_robot_gazebo_cmd,
-        # static_transform_cmd,
+        static_transform_cmd,
         joint_state_publisher_cmd,
-        declare_use_sim_argument,
+ 
     ]
 
     return LaunchDescription(nodes)
