@@ -1,4 +1,4 @@
-# sKracth
+# sKratch
 
 sKratchBOT, a mobile robot with a custom-made base using Kelo wheels and a Kinova 7-DOF Manipulator, developed for the b-it bots team for the RoboCup @Work League
 
