@@ -41,3 +41,8 @@ source ~/skratch_ws/install/setup.bash
 ros2 launch skratch_gazebo gazebo.launch.py
 ``` 
 
+once the robot is launched you can use teleop twist keyboard to control the roobt.
+```
+ros2 run teleop_twist_keyboard teleop_twist_keyboard 
+```
+
