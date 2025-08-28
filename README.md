@@ -29,7 +29,7 @@ colcon build --symlink-install --packages-select package_name
 Currently available packages:
 
 ```
-colcon build --symlink-install --packages-select skratch_description skratch_gazebo
+colcon build --symlink-install --packages-select skratch_description skratch_gazebo skratch_navigation
 ```
 
 
@@ -46,3 +46,16 @@ once the robot is launched you can use teleop twist keyboard to control the roob
 ros2 run teleop_twist_keyboard teleop_twist_keyboard 
 ```
 
+5. Mapping
+
+After the robot is spawned in gazebo, run the follwoing command in a new terminal
+```
+ros2 launch skratch_navigation online_async.launch.py
+```
+in rviz change the global frame to map, and add the topic map. use the teleop twist keyboard to map the enviornment.
+
+once the mapping is done, navigate to this directory and save the map. 
+```
+cd ~/skratch_ws/src/skratch_naviagtion/maps
+ros2 run nav2_map_server map_saver_cli -f map_name
+```
