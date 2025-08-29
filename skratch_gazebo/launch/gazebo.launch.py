@@ -89,13 +89,9 @@ def generate_launch_description():
                 [
                     FindPackageShare("skratch_description"),
                     "gazebo",
-                    "gazebo_robile_no_sensors.xacro" 
+                    "gazebo_skratch.xacro" 
                 ]
-            ),
-            " ",
-            "platform_config:=skratch_config",
-            " ",
-            "movable_joints:=False",
+            )
         ]
     )
 

@@ -28,11 +28,9 @@ def generate_launch_description():
     pkg_path = FindPackageShare('skratch_description').find('skratch_description')
 
     # Xacro processing
-    xacro_file = os.path.join(pkg_path, 'gazebo', 'gazebo_robile_no_sensors.xacro')
-    robot_description_config = xacro.process_file(xacro_file, mappings={
-        'platform_config': 'skratch_config',
-        'movable_joints': 'False'
-    })
+    xacro_file = os.path.join(pkg_path, 'gazebo', 'gazebo_skratch.xacro')
+    robot_description_config = xacro.process_file(xacro_file)
+
     robot_description = {
         'robot_description': robot_description_config.toxml(),
         'use_sim_time': use_sim_time
