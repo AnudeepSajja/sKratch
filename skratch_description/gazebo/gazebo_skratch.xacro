@@ -7,7 +7,7 @@
     <xacro:arg name="use_sim" default="true"/>
 
     <!-- Include desired kelo wheels -->
-    <xacro:include filename="$(find skratch_description)/urdf/base_macros/kelo_drive.urdf.xacro" />
+    <xacro:include filename="$(find skratch_description)/urdf/base_macros/kelo_drive_top.urdf.xacro" />
 
     <!--Include skratch base stl-->
      <xacro:include filename="$(find skratch_description)/base/skratch_base.xacro" />
@@ -28,7 +28,7 @@
 
    <xacro:skratch_base name="skratch_base"/>
     <joint name="skratch_base_joint" type="fixed">
-        <origin xyz="0.0 0.0 0.025" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.0 0.0 0" rpy="0.0 0.0 0.0"/>
         <parent link="base_link"/>
         <child link="skratch_base"/>
     </joint>
@@ -37,21 +37,21 @@
 
     <!-- Build wheels using kelo drive -->
 
-    <xacro:kelo_drive name="wheel0" parent="skratch_base" movable_joints="$(arg movable_joints)">
-        <origin xyz="0.180 0.118 0.0" rpy="0.0 0.0 3.14"/>
-    </xacro:kelo_drive>
+    <xacro:kelo_drive_top name="wheel0" parent="skratch_base" movable_joints="$(arg movable_joints)">
+        <origin xyz="0.190 0.118 0.0" rpy="0.0 0.0 0.0"/>
+    </xacro:kelo_drive_top>
 
-    <xacro:kelo_drive name="wheel1" parent="skratch_base" movable_joints="$(arg movable_joints)">
-        <origin xyz="-0.180 0.118 0.0" rpy="0.0 0.0 0.0"/>
-    </xacro:kelo_drive>
+    <xacro:kelo_drive_top name="wheel1" parent="skratch_base" movable_joints="$(arg movable_joints)">
+        <origin xyz="-0.190 0.118 0.0" rpy="0.0 0.0 0.0"/>
+    </xacro:kelo_drive_top>
 
-    <xacro:kelo_drive name="wheel3" parent="skratch_base" movable_joints="$(arg movable_joints)">
-        <origin xyz="0.180 -0.118 0.0" rpy="0.0 0.0 3.14"/>
-    </xacro:kelo_drive>
+    <xacro:kelo_drive_top name="wheel3" parent="skratch_base" movable_joints="$(arg movable_joints)">
+        <origin xyz="0.190 -0.118 0.0" rpy="0.0 0.0 0.0"/>
+    </xacro:kelo_drive_top>
 
-    <xacro:kelo_drive name="wheel2" parent="skratch_base" movable_joints="$(arg movable_joints)">
-        <origin xyz="-0.180 -0.118 0.0" rpy="0.0 0.0 0.0"/>
-    </xacro:kelo_drive>
+    <xacro:kelo_drive_top name="wheel2" parent="skratch_base" movable_joints="$(arg movable_joints)">
+        <origin xyz="-0.190 -0.118 0.0" rpy="0.0 0.0 0.0"/>
+    </xacro:kelo_drive_top>
 
 
 
@@ -95,16 +95,16 @@
 
     <!-- Arm plate -->
 
-    <xacro:skratch_base_plate name="skratch_arm_plate"/>
+    <!-- <xacro:skratch_base_plate name="skratch_arm_plate"/>
     <joint name="skratch_arm_plate_joint" type="fixed">
         <origin xyz="0.211 0.0 0.155" rpy="0.0 0.0 0.0"/>
         <parent link="skratch_base"/>
         <child link="skratch_arm_plate"/>
-    </joint>
+    </joint> -->
 
     <!--Battery-->
 
-    <link name="battery_link_1">
+    <!-- <link name="battery_link_1">
         <visual>
             <geometry>
                 <box size="0.166 0.166 0.175"/>
@@ -165,7 +165,7 @@
         <parent link="skratch_base"/>
         <child link="battery_link_2"/>
         <axis xyz="0.0 0.0 1.0"/>
-    </joint>
+    </joint> -->
 
 
     <!-- Gazebo Plugins -->

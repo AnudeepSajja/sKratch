@@ -4,7 +4,7 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, LogInfo
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
-from launch.conditions import UnlessCondition
+from launch.conditions import UnlessCondition, IfCondition
 from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
@@ -57,6 +57,14 @@ def generate_launch_description():
         parameters=[{'use_sim_time': use_sim_time}]
     )
 
+    joint_state_publisher_node_gui = Node(
+        condition=IfCondition(gui),
+        package='joint_state_publisher_gui',
+        executable='joint_state_publisher_gui',
+        name='joint_state_publisher_gui',
+        parameters=[{'use_sim_time': use_sim_time}]
+    )
+
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',
@@ -77,5 +85,6 @@ def generate_launch_description():
         log_rviz_path,
         robot_state_publisher_node,
         joint_state_publisher_node,
-        rviz_node
+        rviz_node,
+        joint_state_publisher_node_gui
     ])
