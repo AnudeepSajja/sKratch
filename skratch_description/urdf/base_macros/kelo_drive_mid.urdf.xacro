@@ -21,7 +21,6 @@ Using kelo drive wheels with some modifications to suit skratch bot
                 <axis xyz="0 0 1"/>
                 <parent link="${parent}"/>
                 <child link="${name}_pivot_link" />
-                <limit effort="2.0" velocity="1.0"/>
             </joint>
 
             <transmission name="${name}_pivot_transmission">
@@ -67,8 +66,6 @@ Using kelo drive wheels with some modifications to suit skratch bot
                 <inertia ixx="0.00302046423" ixy="0.00000851844" ixz="0.00001188180" iyy="0.00326495472" iyz="0.00001855408" izz="0.00386072964"/>
             </inertial>
 
-            <!--TODO: Set the correct inertia-->
-            <!-- <xacro:cuboid_inertia mass="10.0" length="0.233" breadth="0.233" height="0.233"/> -->
         </link>
 
         <!-- LEFT HUB WHEEL -->

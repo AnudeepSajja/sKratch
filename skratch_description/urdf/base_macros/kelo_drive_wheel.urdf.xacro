@@ -93,9 +93,6 @@ License LGPL and BSD license along with this program.
                 <inertia ixx="0.00101253363" ixy="0.00000000000" ixz="0.00000001020" iyy="0.00157998524" iyz="-0.00000055474" izz="0.00101282739"/>
             </inertial>
 
-            <!-- <xacro:cylinder_inertia mass="0.5" radius="0.0515" length="0.035" center_of_mass_roll="1.570796327"/> -->
-            <!--HACK: Use large cuboid inertias to fix the issue that the model breaks when JointVelocity controller is activated -->
-            <!-- <xacro:cuboid_inertia mass="10.0" length="0.233" breadth="0.233" height="0.233"/> -->
         </link>
 
     </xacro:macro>

@@ -43,13 +43,7 @@ def generate_launch_description():
         default_value='True',
         description='Whether to start RVIZ')
     
-    # declare_use_sim_argument = DeclareLaunchArgument(
-    #     'use_sim',
-    #     default_value='true',
-    #     description='Whether to include Gazebo simulation plugins'
-    # )
 
-    # use_sim = LaunchConfiguration('use_sim')
 
     x_pose = LaunchConfiguration('x_pose', default='2.0')
     y_pose = LaunchConfiguration('y_pose', default='-6.0')
@@ -61,11 +55,6 @@ def generate_launch_description():
         'atwork.world' 
         )
 
-    # world = os.path.join(
-    #     get_package_share_directory('turtlebot3_gazebo'),
-    #     'worlds',
-    #     'empty.world'
-    # )
 
     gzserver_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -91,7 +80,8 @@ def generate_launch_description():
                     "gazebo",
                     "gazebo_skratch.xacro" 
                 ]
-            )
+            ),
+            " ", "movable_joints:=false"
         ]
     )
 
