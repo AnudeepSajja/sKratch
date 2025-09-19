@@ -1,0 +1,45 @@
+/**:
+  ros__parameters:
+    num_wheels: 4
+    device: eno1
+
+    vlin_max: 0.5  # m / s
+    va_max: 0.5  # rad / s
+    # vlin_acc_max: 0.4  # m / s^2
+    # vlin_dec_max: 1.0  # m / s^2
+    # va_acc_max: 0.5  # rad / s^2
+    # va_dec_max: 1.0  # rad / s^2
+
+    wheel0:    #FR
+      ethercat_number: 2
+      x: 0.202
+      y: 0.118
+      a: 1.8997873067855835
+
+    wheel1:   
+      ethercat_number: 4
+      x: -0.202
+      y: 0.118
+      a: 5.333495616912842
+      
+    wheel2:  #RL
+      ethercat_number: 6
+      x: -0.2028
+      y: -0.118
+      a: 3.4329771995544434
+    
+    wheel3:    #RR  
+      ethercat_number: 7
+      x: 0.202
+      y: -0.118
+      a: 3.9850425720214844
+
+      
+platform_driver:
+  ros__parameters:
+    modules:
+      list: ["platform_driver"]
+      platform_driver:
+        type: platform_driver
+        controller: velocity_platform_controller
+
