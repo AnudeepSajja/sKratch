@@ -42,7 +42,7 @@ License LGPL and BSD license along with this program.
 
     <xacro:macro name="kelo_drive_wheel" params="name parent *origin movable_joints:=true">
 
-        <xacro:include filename="$(find skratch_description)/urdf/base_macros/common.xacro" />
+        <xacro:include filename="$(find skratch_description)/wheels/common.xacro" />
 
         <xacro:if value="${movable_joints}">
             <joint name="${name}_joint" type="continuous">
@@ -92,7 +92,10 @@ License LGPL and BSD license along with this program.
                 <mass value="1.56317"/>
                 <inertia ixx="0.00101253363" ixy="0.00000000000" ixz="0.00000001020" iyy="0.00157998524" iyz="-0.00000055474" izz="0.00101282739"/>
             </inertial>
+<<<<<<< HEAD:skratch_description/urdf/base_macros/kelo_drive_wheel.urdf.xacro
 
+=======
+>>>>>>> recovered_update:skratch_description/wheels/kelo_drive_wheel.urdf.xacro
         </link>
 
     </xacro:macro>

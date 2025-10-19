@@ -1,42 +1,58 @@
 <?xml version="1.0"?>
 <robot name="lidar_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:macro name="lidar_with_plugin" params="name ros_topic update_rate min_angle max_angle">
+  <xacro:macro name="hokuyo_urg_lidar" params="name ros_topic update_rate min_angle max_angle">
     
     <!-- Link with STL geometry -->
-    <link name="${name}_link">
+    <link name="${name}_stl_link">
       <inertial>
-        <origin xyz="0.0 0.0 0.027537" rpy="0.0 0.0 0.0" />
-        <mass value="0.1" />
-        <inertia ixx="0.00006111" iyy="0.00004167" izz="0.00006111" ixy="0.0" iyz="0.0" ixz="0.0" />
+        <mass value="0.16" />
+        <origin xyz="0.0 0.0 0.035" rpy="0.0 0.0 0.0" />
+        <inertia ixx="0.0001563" iyy="0.0001563" izz="0.0001333" ixy="0.0" ixz="0.0" iyz="0.0"/>
       </inertial>
       <visual>
-        <origin xyz="0.0 0.0 0.06" rpy="0.0 3.14 0.0" />
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 3.14 3.14" />
         <geometry>
-          <mesh filename="file://$(find skratch_description)/meshes/lidar/lidar.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find skratch_description)/meshes/sensors/Hokuyo_URG_04LX_UG01.stl" scale="1 1 1"/>
         </geometry>
         <material name="Black">
           <color rgba="0 0 0 1"/>
         </material>
       </visual>
       <collision>
-        <origin xyz="0.0 0.0 0.6" rpy="0.0 3.14 0.0" />
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 3.14 3.14" />
         <geometry>
-          <mesh filename="file://$(find skratch_description)/meshes/lidar/lidar.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find skratch_description)/meshes/sensors/Hokuyo_URG_04LX_UG01.stl" scale="1 1 1"/>
         </geometry>
       </collision>
     </link>
 
     <!-- Gazebo material -->
-    <gazebo reference="${name}_link">
+    <gazebo reference="${name}_stl_link">
       <material>Gazebo/Black</material>
     </gazebo>
 
+     <!-- Child link only for the laser rays -->
+    <link name="${name}_ray_link">
+      <inertial>
+        <mass value="0.001"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.000001" iyy="0.000001" izz="0.000001" ixy="0.0" ixz="0.0" iyz="0.0"/>
+      </inertial>
+    </link>
+
+    <!-- ↓↓↓ Move ray start point 5 cm below STL origin ↓↓↓ -->
+    <joint name="${name}_ray_joint" type="fixed">
+      <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+      <parent link="${name}_stl_link"/>
+      <child link="${name}_ray_link"/>
+    </joint>
+
     <!-- Gazebo sensor plugin -->
-    <gazebo reference="${name}_link">
-      <sensor name="${name}" type="ray">
+    <gazebo reference="${name}_ray_link">
+      <sensor name="${name}_sensor" type="ray">
         <update_rate>${update_rate}</update_rate>
-        <pose>0 0 0 0 0 0</pose>
+        <pose>0 0 0.0 0 0 0</pose>
         <visualize>true</visualize>
         <ray>
           <scan>
@@ -64,7 +80,7 @@
             <remapping>~/out:=${ros_topic}</remapping>
           </ros>
           <output_type>sensor_msgs/LaserScan</output_type>
-          <frame_name>${name}_link</frame_name>
+          <frame_name>${name}_ray_link</frame_name>
         </plugin>
       </sensor>
     </gazebo>

@@ -28,7 +28,7 @@ def generate_launch_description():
     pkg_path = FindPackageShare('skratch_description').find('skratch_description')
 
     # Xacro processing
-    xacro_file = os.path.join(pkg_path, 'gazebo', 'gazebo_skratch.xacro')
+    xacro_file = os.path.join(pkg_path, 'urdf', 'skratch_urdf.xacro')
     robot_description_config = xacro.process_file(xacro_file)
 
     robot_description = {
@@ -38,7 +38,7 @@ def generate_launch_description():
 
     # RViz config using PathJoinSubstitution
     rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare('skratch_description'), 'config', 'robot.rviz']
+        [FindPackageShare('skratch_description'), 'config', 'skratch_description.rviz']
     )
 
     # Nodes
