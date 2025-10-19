@@ -1,10 +1,18 @@
 <?xml version="1.0"?>
+<!--
+Copyright (c) 2025
+b-it-bots
+Hochschule Bonn-Rhein-Sieg
+
+Authors:
+Chaitanya Gumudala
+-->
 <robot name="skratch_base" xmlns:xacro="http://www.ros.org/wiki/xacro">
     <xacro:macro name="skratch_base" params="name">
         <link name="${name}">
             <inertial>
                 <mass value="2.0"/>
-                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <origin xyz="0 0 -0.075" rpy="0 0 0"/>
                 <inertia ixx="0.03287973" iyy="0.06900190" izz="0.09325417" ixy="0.0" ixz="0.0" iyz="0.0"/>
             </inertial>
             <visual>

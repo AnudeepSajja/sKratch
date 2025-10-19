@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Authors: Deebul Nair
+# Authors: Anudeep Sajja
 
 import os
 
@@ -51,21 +51,17 @@ def generate_launch_description():
 
     # use_sim = LaunchConfiguration('use_sim')
 
-    x_pose = LaunchConfiguration('x_pose', default='2.0')
-    y_pose = LaunchConfiguration('y_pose', default='-6.0')
+    x_pose = LaunchConfiguration('x_pose', default='0.0')
+    y_pose = LaunchConfiguration('y_pose', default='0.2')
 
     
     world = os.path.join( 
         get_package_share_directory('skratch_gazebo'), 
         'worlds', 
-        'atwork.world' 
+        'atwork_world.sdf' 
         )
 
-    # world = os.path.join(
-    #     get_package_share_directory('turtlebot3_gazebo'),
-    #     'worlds',
-    #     'empty.world'
-    # )
+    
 
     gzserver_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -88,8 +84,8 @@ def generate_launch_description():
             PathJoinSubstitution(
                 [
                     FindPackageShare("skratch_description"),
-                    "gazebo",
-                    "gazebo_skratch.xacro" 
+                    "urdf",
+                    "skratch_urdf.xacro" 
                 ]
             )
         ]
@@ -123,9 +119,10 @@ def generate_launch_description():
 
     # RViz configuration
     rviz_config_file = os.path.join(
-        get_package_share_directory('skratch_description'),
+        get_package_share_directory('skratch_gazebo'),
         'config',
-        'robot.rviz'
+        'rviz',
+        'skratch_visualization.rviz'
     )
 
     rviz_cmd = Node(package='rviz2',
