@@ -25,6 +25,7 @@ setup(
         "console_scripts": [
             # e.g. "foo = skratch_bringup.foo:main",
             'wheels_to_joint_states = skratch_bringup.wheels_to_joint_states:main',
+            'pivot_velocity_logger = skratch_bringup.get_velocity_pivot:main',
         ],
     },
 )

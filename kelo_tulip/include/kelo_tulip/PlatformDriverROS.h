@@ -158,6 +158,7 @@ protected:
 	double odomx;
 	double odomy;
 	double odoma;
+	std::string base_frame_id;
 	
 	rclcpp::Node::SharedPtr nh;
 };

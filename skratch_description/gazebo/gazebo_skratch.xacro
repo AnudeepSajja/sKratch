@@ -4,7 +4,7 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="skratch_platform_gazebo">
 
     <xacro:arg name="movable_joints" default="false" />
-    <xacro:arg name="use_sim" default="true"/>
+    <xacro:arg name="use_sim" default="false"/>
 
     <!-- Include desired kelo wheels -->
     <xacro:include filename="$(find skratch_description)/urdf/base_macros/kelo_drive_top.urdf.xacro" />
@@ -57,7 +57,7 @@
 
     <!-- Build Front Lidar -->
 
-    <!-- <xacro:if value="$(arg use_sim)">
+    <xacro:if value="$(arg use_sim)">
         <xacro:lidar_with_plugin 
             name="front_lidar" 
             ros_topic="/front_scan"
@@ -66,16 +66,16 @@
             max_angle="-3.83" />
 
         <joint name="front_lidar_joint" type="fixed">
-            <origin xyz="0.320 -0.21 0.060" rpy="0.0 0.0 0.81"/>
+            <origin xyz="0.320 -0.21 0.060" rpy=" 3.14 0.0 0.81"/>
             <parent link="base_link"/>
             <child link="front_lidar_link"/>
         </joint>
-    </xacro:if> -->
+    </xacro:if>
 
 
     <!-- Build Rear Lidar -->
     
-    <!-- <xacro:if value="$(arg use_sim)">
+    <xacro:if value="$(arg use_sim)">
         <xacro:lidar_with_plugin 
             name="rear_lidar" 
             ros_topic="/rear_scan"
@@ -84,11 +84,11 @@
             max_angle="-3.83" />
 
         <joint name="rear_lidar_joint" type="fixed">
-            <origin xyz="-0.320 0.22 0.060" rpy="0.0 0.0 0.81"/>
+            <origin xyz="-0.320 0.22 0.060" rpy="3.14 0.0 0.81"/>
             <parent link="base_link"/>
             <child link="rear_lidar_link"/>
         </joint>
-    </xacro:if> -->
+    </xacro:if>
 
 
 

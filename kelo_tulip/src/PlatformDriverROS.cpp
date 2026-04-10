@@ -71,6 +71,7 @@ PlatformDriverROS::PlatformDriverROS()
 	odomx = 0;
 	odomy = 0;
 	odoma = 0;
+	base_frame_id = "base_link";
 }
 
 PlatformDriverROS::~PlatformDriverROS() {
@@ -100,6 +101,7 @@ bool PlatformDriverROS::init(rclcpp::Node::SharedPtr nh, std::string configPrefi
 	nh->declare_parameter("joy_va_max", 1.0); 
 	nh->declare_parameter("joy_scale", 1.0);
 	nh->declare_parameter("active_by_joypad", false);
+	nh->declare_parameter("base_frame_id", "base_link");
 
 	rclcpp::Parameter num_wheels;
 	if (!nh->get_parameter("num_wheels", num_wheels)) {
@@ -165,6 +167,10 @@ bool PlatformDriverROS::init(rclcpp::Node::SharedPtr nh, std::string configPrefi
 		activeByJoypad = b.as_bool();
 	if (!activeByJoypad)
 		driver->setCanChangeActive();
+		
+	rclcpp::Parameter frame_id_param;
+	if (nh->get_parameter("base_frame_id", frame_id_param))
+		base_frame_id = frame_id_param.as_string();
 		
 	odomPublisher = nh->create_publisher<nav_msgs::msg::Odometry>("/odom", 10);
 	odomInitializedPublisher = nh->create_publisher<std_msgs::msg::Empty>("/odom_initialized", 10);
@@ -468,7 +474,7 @@ void PlatformDriverROS::publishOdometry(double vx, double vy, double va) {
 	odom.header.stamp = nh->get_clock()->now();
 	//odom.header.seq = sequence_id++;
 	odom.header.frame_id = "odom";
-	odom.child_frame_id = "base_link";
+	odom.child_frame_id = base_frame_id;
 	odom.pose.covariance[0] = 1e-3;
 	odom.pose.covariance[7] = 1e-3;
 	odom.pose.covariance[8] = 0.0;
@@ -498,7 +504,7 @@ void PlatformDriverROS::createOdomToBaseLinkTransform(geometry_msgs::msg::Transf
 	odom_quat.setRPY(0, 0, odoma);
 	odom_trans.header.stamp = nh->get_clock()->now();
 	odom_trans.header.frame_id = "odom";
-	odom_trans.child_frame_id = "base_link";
+	odom_trans.child_frame_id = base_frame_id;
 	odom_trans.transform.translation.x = odomx;
 	odom_trans.transform.translation.y = odomy;
 	odom_trans.transform.translation.z = 0.0;

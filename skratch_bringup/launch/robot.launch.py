@@ -28,11 +28,9 @@ def generate_launch_description():
         " ",
         PathJoinSubstitution([
             FindPackageShare("skratch_description"),
-            "gazebo",
-            "gazebo_skratch.xacro",
-        ]),
-        # You can pass xacro args here if needed, e.g.:
-        " ", "movable_joints:=true"
+            "urdf",
+            "skratch_urdf.xacro",
+        ])
     ])
 
     robot_state_publisher = Node(
@@ -54,7 +52,7 @@ def generate_launch_description():
         name='wheels_to_joint_states',
         output='screen',
         parameters=[{
-            'wheel_names': ['wheel0', 'wheel1', 'wheel3', 'wheel2'],  # adjust if your wheels[] order differs
+            'wheel_names': ['wheel0', 'wheel1', 'wheel3', 'wheel2'],  # adjust if your wheels[] order differs # AK- ordered change 0123
             'encoders_in_degrees': False,
             'triplet_order': 'LPR'
         }],
@@ -82,15 +80,46 @@ def generate_launch_description():
         # Syntax (ROS 2): x y z yaw pitch roll frame_id child_frame_id
         arguments=["0", "0", "0", "0", "0", "0", "base_footprint", "base_link"]
     )
-
+    
     if robotname == 'skratch':
         print('[INFO] [launch] skratch: loading')
                              
-    
+    frontlidar = Node(
+        package='urg_node',
+        executable='urg_node_driver',
+        name='frontlidar',
+        output='screen',
+        parameters=[{'serial_port': '/dev/serial/by-path/pci-0000:00:14.0-usb-0:1:1.0', 'laser_frame_id': 'front_lidar_ray_link'}],
+        remappings=[('scan', 'front_scan')]
+    )
+
+    back_lidar = Node(
+        package='urg_node',
+        executable='urg_node_driver',
+        name='back_lidar',
+        output='screen',
+        parameters=[{'serial_port': '/dev/serial/by-path/pci-0000:00:14.0-usb-0:2:1.0', 'laser_frame_id': 'rear_lidar_ray_link'}],
+        remappings=[('scan', 'rear_scan')]
+    )
+
+    dual_laser_merger_config_dir = os.path.join(get_package_share_directory('skratch_sensor'), 'config')
+    dual_laser_merger_params_file = os.path.join(dual_laser_merger_config_dir, 'dual_laser_merger_params.yaml')
+
+    dual_laser_merger_node = Node(
+            package='dual_laser_merger',
+            executable='dual_laser_merger_node',
+            name='dual_laser_merger',
+            output='screen',
+            parameters=[dual_laser_merger_params_file]
+        )
+
     return LaunchDescription([
         smart_wheel_driver,
         wheels_bridge,
         robot_state_publisher,
-        rviz_cmd,
-        static_transform
+        frontlidar,
+        back_lidar,
+        # rviz_cmd,
+        # static_transform,
+        dual_laser_merger_node,
     ])
